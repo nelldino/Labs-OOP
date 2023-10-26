@@ -1,39 +1,70 @@
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class FolderMonitor {
-
-    private static long lastSnapshotTime;
-    private static final String folderPath = "C:\\Users\\NelliGarbuz\\IdeaProjects\\LAB 3\\src"; // Specify your folder path here
+    private static final String FOLDER_PATH = "C:\\Users\\NelliGarbuz\\Desktop\\labs-oop\\Labs-OOP\\LAB3\\src\\files";
+    private static long lastSnapshotTime = System.currentTimeMillis();
+    private static HashSet<String> lastSnapshotFiles = new HashSet<>();
 
     public static void main(String[] args) {
-        lastSnapshotTime = System.currentTimeMillis();
+        try {
+            Path folderPath = Paths.get(FOLDER_PATH);
+            Files.walkFileTree(folderPath, new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    Path relativePath = folderPath.relativize(file);
+                    String fileName = relativePath.toString().toLowerCase();
+                    lastSnapshotFiles.add(fileName);
+                    return FileVisitResult.CONTINUE;
+                }
 
+                @Override
+                public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+                    // Handle the case where a file visit fails (optional)
+                    return FileVisitResult.CONTINUE;
+                }
+
+                @Override
+                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                    Path relativePath = folderPath.relativize(dir);
+                    String dirName = relativePath.toString().toLowerCase();
+                    lastSnapshotFiles.add(dirName);
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
             System.out.println("Folder Monitoring System");
-            System.out.println("1. Commit changes");
-            System.out.println("2. File Information");
-            System.out.println("3. Exit");
+            System.out.println("1. commit");
+            System.out.println("2. info all/specific file");
+            System.out.println("3. status");
+            System.out.println("4. exit");
             System.out.print("Enter your choice: ");
-            int choice = scanner.nextInt();
+            String choice = scanner.nextLine();
 
             switch (choice) {
-                case 1:
+                case "commit":
                     commitChanges();
                     break;
-                case 2:
-                    scanner.nextLine(); // Consume the newline character left after previous nextInt()
-                    System.out.print("Enter filename: ");
-                    String fileName = scanner.nextLine();
-                    displayFileInfo(fileName);
+                case "info all":
+                    FileInfoPrinter fileInfoPrinter = new FileInfoPrinter();
+                    FileInfoPrinter.printFileInfo(FOLDER_PATH);
                     break;
-                case 3:
-                    System.out.println("Exiting program. Goodbye!");
-                    System.exit(0);
+                case "info specific file":
+                    SystemFile.GeneralInfo();
+                    break;
+                case "status":
+                    checkFileStatus();
+                    break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
@@ -42,7 +73,7 @@ public class FolderMonitor {
 
     private static void commitChanges() {
         lastSnapshotTime = System.currentTimeMillis();
-        System.out.println("Changes committed. Snapshot time updated to: " + getCurrentTime());
+        System.out.println("Created snapshot at: " + getCurrentTime());
     }
 
     private static String getCurrentTime() {
@@ -51,18 +82,63 @@ public class FolderMonitor {
         return sdf.format(resultDate);
     }
 
+    private static void checkFileStatus() {
+        try {
+            HashSet<String> currentFiles = new HashSet<>();
+            Path folderPath = Paths.get(FOLDER_PATH);
 
-    private static void displayFileInfo(String fileName) {
-        if (fileName.endsWith(".txt")) {
-            TextFile.displayFileInfo(fileName);
-        } else if (fileName.endsWith(".png") || fileName.endsWith(".jpg")) {
-            ImageFile.displayFileInfo(fileName);
-        } else if (fileName.endsWith(".java")) {
-            JavaFile.displayFileInfo(fileName);
-        } else if (fileName.endsWith(".py")) {
-            PythonFile.displayFileInfo(fileName);
-        } else {
-            System.out.println("Unsupported file type: " + fileName);
+            Files.walkFileTree(folderPath, new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    processFile(file);
+                    return FileVisitResult.CONTINUE;
+                }
+
+                @Override
+                public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+                    // Handle the case where a file visit fails (optional)
+                    return FileVisitResult.CONTINUE;
+                }
+
+                @Override
+                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                    processFile(dir);
+                    return FileVisitResult.CONTINUE;
+                }
+
+                private void processFile(Path path) throws IOException {
+                    Path relativePath = folderPath.relativize(path);
+                    String fileName = relativePath.toString().toLowerCase();
+                    if (fileName.isEmpty()) {
+                        return;
+                    }
+                    long lastModifiedMillis = Files.getLastModifiedTime(path).toMillis();
+
+                    if (!lastSnapshotFiles.contains(fileName)) {
+                        System.out.println(fileName + " - New File");
+                    } else if (lastModifiedMillis > lastSnapshotTime) {
+                        System.out.println(fileName + " - Changed");
+                    } else {
+                        System.out.println(fileName + " - Not Changed");
+                    }
+                    currentFiles.add(fileName);
+                }
+            });
+
+            // Detect deleted files or directories
+            for (String fileName : lastSnapshotFiles) {
+                if (!currentFiles.contains(fileName.toLowerCase())) {
+                    System.out.println(fileName + " - Deleted");
+                }
+            }
+
+            lastSnapshotFiles = currentFiles;
+            lastSnapshotTime = System.currentTimeMillis(); // Update the last snapshot time
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+
+
 }

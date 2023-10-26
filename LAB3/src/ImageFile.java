@@ -3,20 +3,31 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ImageFile {
-    private static final String FOLDER_PATH = "C:\\Users\\NelliGarbuz\\IdeaProjects\\LAB 3\\src";
-    public static void displayFileInfo(String fileName) {
+public class ImageFile extends FileItem {
+    private int width;
+    private int height;
+
+    public ImageFile(String fileName) {
+        super(fileName);
         try {
             BufferedImage image = ImageIO.read(new File(fileName));
-            if (image != null) {
-                int width = image.getWidth();
-                int height = image.getHeight();
-                System.out.println("Image Size: " + width + "x" + height);
-            } else {
-                System.out.println("Failed to read image: " + fileName);
-            }
+            this.width = image.getWidth();
+            this.height = image.getHeight();
         } catch (IOException e) {
-            System.out.println("Error reading image: " + e.getMessage());
+            e.printStackTrace();
         }
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+    @Override
+    public void printFileInfo() {
+        System.out.println("Width: " + getWidth());
+        System.out.println("Height: " + getHeight());
     }
 }

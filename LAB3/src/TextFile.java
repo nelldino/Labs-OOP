@@ -1,39 +1,41 @@
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class TextFile {
-    private static final String FOLDER_PATH = "C:\\Users\\NelliGarbuz\\IdeaProjects\\LAB 3\\src"; // Specify your folder path here
+public class TextFile extends FileItem {
+    private int lineCount;
+    private int wordCount;
+    private int charCount;
 
-    public static void displayFileInfo(String fileName) {
-        File file = new File(FOLDER_PATH + File.separator + fileName);
-
-        if (file.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                int lineCount = 0;
-                int wordCount = 0;
-                int charCount = 0;
-                String line;
-
-                while ((line = reader.readLine()) != null) {
-                    // Count lines
-                    lineCount++;
-
-                    // Count words and characters in each line
-                    String[] words = line.split("\\s+"); // Split by whitespace
-                    wordCount += words.length;
-                    charCount += line.length();
-                }
-
-                System.out.println("Line Count: " + lineCount);
-                System.out.println("Word Count: " + wordCount);
-                System.out.println("Character Count: " + charCount);
-            } catch (IOException e) {
-                System.out.println("Error reading text file: " + e.getMessage());
+    public TextFile(String fileName) {
+        super(fileName);
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                charCount += line.length();
+                wordCount += line.split("\\s+").length;
+                lineCount++;
             }
-        } else {
-            System.out.println("File not found: " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
+
+    public int getLineCount() {
+        return lineCount;
+    }
+
+    public int getWordCount() {
+        return wordCount;
+    }
+
+    public int getCharCount() {
+        return charCount;
+    }
+    @Override
+    public void printFileInfo() {
+        System.out.println("Line Count: " + getLineCount());
+        System.out.println("Word Count: " + getWordCount());
+        System.out.println("Char Count: " + getCharCount());
     }
 }
