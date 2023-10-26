@@ -1,13 +1,14 @@
-import java.io.File;
+import watchers.SystemFile;
+import handlers.FileInfoPrinter;
+
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.FileTime;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class FolderMonitor {
-    private static final String FOLDER_PATH = "C:\\Users\\NelliGarbuz\\Desktop\\labs-oop\\Labs-OOP\\LAB3\\src\\files";
+    private static final String FOLDER_PATH = "C:\\Users\\NelliGarbuz\\Desktop\\oop\\Labs-OOP\\LAB3\\src\\files";
     private static long lastSnapshotTime = System.currentTimeMillis();
     private static HashSet<String> lastSnapshotFiles = new HashSet<>();
 
