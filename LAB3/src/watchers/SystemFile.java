@@ -1,8 +1,10 @@
+package watchers;
+
 import java.util.Scanner;
 import java.io.File;
 
 public class SystemFile {
-    private static final String FOLDER_PATH = "C:\\Users\\NelliGarbuz\\Desktop\\labs-oop\\Labs-OOP\\LAB3\\src\\files";
+    public static final String FOLDER_PATH = "C:\\Users\\NelliGarbuz\\Desktop\\oop\\Labs-OOP\\LAB3\\src\\files";
 
     public static void GeneralInfo() {
         Scanner scanner = new Scanner(System.in);
