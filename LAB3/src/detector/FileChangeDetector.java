@@ -1,6 +1,7 @@
+package detector;
+
 import java.io.IOException;
 import java.nio.file.*;
-import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
 public class FileChangeDetector {
@@ -32,14 +33,13 @@ public class FileChangeDetector {
                 }
 
                 //if (!changesDetected) {
-                //    System.out.println("No change.");
+                //System.out.println("No change.");
                 //}
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
     }
-
 
     public void close() throws IOException {
         watchService.close();

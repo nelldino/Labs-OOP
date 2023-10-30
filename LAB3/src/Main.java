@@ -1,3 +1,4 @@
+import detector.FileChangeDetector;
 import handlers.CommandLineProcessor;
 
 import java.io.IOException;
