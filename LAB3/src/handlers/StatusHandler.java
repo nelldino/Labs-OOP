@@ -32,7 +32,6 @@ public class StatusHandler {
 
                 @Override
                 public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-                    // Handle the case where a file visit fails (optional)
                     return FileVisitResult.CONTINUE;
                 }
             });
@@ -55,7 +54,7 @@ public class StatusHandler {
 
                 @Override
                 public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-                    // Handle the case where a file visit fails (optional)
+                  
                     return FileVisitResult.CONTINUE;
                 }
 
@@ -65,8 +64,7 @@ public class StatusHandler {
                     return FileVisitResult.CONTINUE;
                 }
             });
-
-            // Detect deleted files or directories
+          
             for (String fileName : lastSnapshotFiles) {
                 if (!currentFiles.contains(fileName.toLowerCase())) {
                     System.out.println(fileName + " - Deleted");
@@ -74,11 +72,12 @@ public class StatusHandler {
             }
 
             lastSnapshotFiles = currentFiles;
-            lastSnapshotTime = System.currentTimeMillis(); // Update the last snapshot time
+            lastSnapshotTime = System.currentTimeMillis(); 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     private void processFile(Path path, HashSet<String> currentFiles) throws IOException {
         Path relativePath = Paths.get(FOLDER_PATH).relativize(path);
         String fileName = relativePath.toString().toLowerCase();
