@@ -15,7 +15,7 @@ public class SystemFile {
             file = new TextFile(fileName);
         } else if (fileName.endsWith(".png") || fileName.endsWith(".jpg")) {
             file = new ImageFile(fileName);
-        } else if (fileName.endsWith(".java") || fileName.endsWith(".py")) {
+        } else if (fileName.endsWith(".java") || fileName.endsWith(".py")){
             file = new ProgramFile(fileName);
         } else {
             System.out.println("Unsupported file type.");
