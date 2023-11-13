@@ -42,8 +42,8 @@ public class StackImplementation {
             System.out.println("3. peek");
             System.out.println("4. empty or no");
             System.out.println("5. size");
-            System.out.println("7. elements");
-            System.out.println("6. Exit");
+            System.out.println("7. all elements");
+            System.out.println("6. exit");
             System.out.println("Enter your choice: ");
             String operation = scanner.next();
 
