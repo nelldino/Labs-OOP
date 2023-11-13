@@ -5,7 +5,7 @@ import watchers.SystemFile;
 import java.util.Scanner;
 
 public class CommandLineProcessor {
-    private static final String FOLDER_PATH = "C:\\Users\\NelliGarbuz\\Desktop\\oop\\Labs-OOP\\LAB3\\src\\files";
+    private static final String FOLDER_PATH = "C:\\Users\\NelliGarbuz\\Desktop\\oop\\Labs-OOP\\LAB 2 (Divine Lineage and Shapeshifting)\\src\\files";
     private CommitHandler commitHandler;
     private StatusHandler statusHandler;
 
@@ -31,7 +31,6 @@ public class CommandLineProcessor {
                     commitHandler.handleCommit();
                     break;
                 case "info all":
-                    FileInfoPrinter fileInfoPrinter = new FileInfoPrinter();
                     FileInfoPrinter.printFileInfo(SystemFile.FOLDER_PATH);
                     break;
                 case "info specific file":

@@ -24,13 +24,12 @@ class Employee(Person):
         print("My name is {}".format(self.name))
         print("IdNumber: {}".format(self.idnumber))
         print("Post: {}".format(self.post))
-def details(self):
-    print("My name is {}".format(self.name))
-    print("IdNumber: {}".format(self.idnumber))
-    print("Post: {}".format(self.post))
+
 
 # creation of an object variable or an instance
 a = Employee('Rahul', 886012, 200000, "Intern")
 
 # calling a function of the class Person using
 # its instance
+a.display()
+a.details()
