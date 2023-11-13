@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
 
     public static void main(String[] args) {
-        Path folderPath = Paths.get("C:\\Users\\NelliGarbuz\\Desktop\\oop\\Labs-OOP\\LAB3\\src\\files");
+        Path folderPath = Paths.get("C:\\Users\\NelliGarbuz\\Desktop\\oop\\Labs-OOP\\LAB 2 (Divine Lineage and Shapeshifting)\\src\\files");
 
         try {
             FileChangeDetector fileChangeDetector = new FileChangeDetector(folderPath);

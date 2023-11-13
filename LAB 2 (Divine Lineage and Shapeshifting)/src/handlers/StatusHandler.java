@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class StatusHandler {
-    private static final String FOLDER_PATH = "C:\\Users\\NelliGarbuz\\Desktop\\oop\\Labs-OOP\\LAB3\\src\\files";
+    private static final String FOLDER_PATH = "C:\\Users\\NelliGarbuz\\Desktop\\oop\\Labs-OOP\\LAB 2 (Divine Lineage and Shapeshifting)\\src\\files";
     private HashSet<String> lastSnapshotFiles;
     private long lastSnapshotTime;
 

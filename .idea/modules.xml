@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/LAB 1 (Labors of Hercules)/LAB 1 (Labors of Hercules).iml" filepath="$PROJECT_DIR$/LAB 1 (Labors of Hercules)/LAB 1 (Labors of Hercules).iml" />
+      <module fileurl="file://$PROJECT_DIR$/LAB 2 (Divine Lineage and Shapeshifting)/LAB 2 (Divine Lineage and Shapeshifting).iml" filepath="$PROJECT_DIR$/LAB 2 (Divine Lineage and Shapeshifting)/LAB 2 (Divine Lineage and Shapeshifting).iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Labs-OOP.iml" filepath="$PROJECT_DIR$/.idea/Labs-OOP.iml" />
+    </modules>
+  </component>
+</project>
