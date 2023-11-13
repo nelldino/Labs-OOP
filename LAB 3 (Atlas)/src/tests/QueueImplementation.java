@@ -7,6 +7,8 @@ import queue.VectorQueue;
 import java.util.Scanner;
 import java.util.NoSuchElementException;
 
+import static elements.elements.printQueueElements;
+
 public class QueueImplementation {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -89,23 +91,4 @@ public class QueueImplementation {
         }
     }
 
-    private static void printQueueElements(Queue<Object> queue) {
-        if (queue.isEmpty()) {
-            System.out.println("Queue is empty.");
-            return;
-        }
-
-        System.out.print("Queue elements: ");
-        Queue<Object> tempQueue = new ArrayQueue<>();
-        while (!queue.isEmpty()) {
-            Object element = queue.dequeue();
-            tempQueue.enqueue(element);
-            System.out.print(element + " ");
-        }
-        while (!tempQueue.isEmpty()) {
-            queue.enqueue(tempQueue.dequeue());
-        }
-
-        System.out.println();
-    }
 }

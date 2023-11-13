@@ -6,6 +6,8 @@ import stack.Stack;
 import stack.VectorStack;
 import java.util.Scanner;
 
+import static elements.elements.printStackElements;
+
 public class StackImplementation {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -34,48 +36,48 @@ public class StackImplementation {
         }
 
         while (true) {
-            System.out.println("Stack Operations:");
-            System.out.println("1. Push");
-            System.out.println("2. Pop");
-            System.out.println("3. Peek");
-            System.out.println("4. Check if stack is empty");
-            System.out.println("5. Stack size");
-            System.out.println("7. Stack elements");
+            System.out.println("Stack Operations: ");
+            System.out.println("1. push");
+            System.out.println("2. pop");
+            System.out.println("3. peek");
+            System.out.println("4. empty or no");
+            System.out.println("5. size");
+            System.out.println("7. elements");
             System.out.println("6. Exit");
             System.out.println("Enter your choice: ");
             String operation = scanner.next();
 
             switch (operation) {
                 case "push":
-                    System.out.print("Enter element to push: ");
+                    System.out.print("enter element to push: ");
                     Object element = scanner.next();
                     stack.push(element);
-                    System.out.println("Element pushed onto the stack.");
+                    System.out.println("element pushed onto the stack.");
                     break;
                 case "pop":
                     try {
                         Object poppedElement = stack.pop();
-                        System.out.println("Popped element: " + poppedElement);
+                        System.out.println("popped element: " + poppedElement);
                     } catch (Exception e) {
-                        System.out.println("Stack is empty. Cannot pop.");
+                        System.out.println("stack is empty");
                     }
                     break;
                 case "peek":
                     try {
                         Object peekedElement = stack.peek();
-                        System.out.println("Top element: " + peekedElement);
+                        System.out.println("top element: " + peekedElement);
                     } catch (Exception e) {
-                        System.out.println("Stack is empty. No top element.");
+                        System.out.println("stack is empty. no top element.");
                     }
                     break;
                 case "empty":
-                    System.out.println("Is stack empty? " + stack.isEmpty());
+                    System.out.println("empty or not? " + stack.isEmpty());
                     break;
                 case "size":
-                    System.out.println("Stack size: " + stack.size());
+                    System.out.println("stack size: " + stack.size());
                     break;
                 case "elements":
-                    System.out.println("Stack Elements:");
+                    System.out.println("stack elements:");
                     printStackElements(stack);
                     break;
                 case "exit":
@@ -86,24 +88,5 @@ public class StackImplementation {
                     return;
             }
         }
-    }
-    private static void printStackElements(Stack<Object> stack) {
-        if (stack.isEmpty()) {
-            System.out.println("Stack is empty.");
-            return;
-        }
-
-        System.out.print("Stack elements: ");
-        Stack<Object> tempStack = new ArrayStack<>();
-        while (!stack.isEmpty()) {
-            Object element = stack.pop();
-            tempStack.push(element);
-            System.out.print(element + " ");
-        }
-        while (!tempStack.isEmpty()) {
-            stack.push(tempStack.pop());
-        }
-
-        System.out.println();
     }
 }
