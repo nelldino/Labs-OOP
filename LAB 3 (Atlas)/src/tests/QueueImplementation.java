@@ -38,50 +38,50 @@ public class QueueImplementation {
 
         while (true) {
             System.out.println("Queue Operations:");
-            System.out.println("1. Enqueue");
-            System.out.println("2. Dequeue");
-            System.out.println("3. Peek");
-            System.out.println("4. Check if queue is empty");
-            System.out.println("5. Queue size");
-            System.out.println("6. Display all queue elements");
-            System.out.println("7. Exit");
+            System.out.println("1. enqueue");
+            System.out.println("2. dequeue");
+            System.out.println("3. peek");
+            System.out.println("4. empty or not");
+            System.out.println("5. size");
+            System.out.println("6. all elements");
+            System.out.println("7. exit");
             System.out.print("Enter your choice: ");
-            int operation = scanner.nextInt();
+            String operation = scanner.next();
 
             switch (operation) {
-                case 1:
-                    System.out.print("Enter element to enqueue: ");
+                case "enqueue":
+                    System.out.print("enter element to enqueue: ");
                     Object element = scanner.next();
                     queue.enqueue(element);
-                    System.out.println("Element enqueued into the queue.");
+                    System.out.println("element enqueued into the queue.");
                     break;
-                case 2:
+                case "dequeue":
                     try {
                         Object dequeuedElement = queue.dequeue();
-                        System.out.println("Dequeued element: " + dequeuedElement);
+                        System.out.println("dequeued element: " + dequeuedElement);
                     } catch (NoSuchElementException e) {
-                        System.out.println("Queue is empty. Cannot dequeue.");
+                        System.out.println("queue is empty. cannot dequeue.");
                     }
                     break;
-                case 3:
+                case "peek":
                     try {
                         Object peekedElement = queue.peek();
-                        System.out.println("Front element: " + peekedElement);
+                        System.out.println("front element: " + peekedElement);
                     } catch (NoSuchElementException e) {
-                        System.out.println("Queue is empty. No front element.");
+                        System.out.println("queue is empty. no front element.");
                     }
                     break;
-                case 4:
-                    System.out.println("Is queue empty? " + queue.isEmpty());
+                case "empty":
+                    System.out.println("empty or not? " + queue.isEmpty());
                     break;
-                case 5:
-                    System.out.println("Queue size: " + queue.size());
+                case "size":
+                    System.out.println("size: " + queue.size());
                     break;
-                case 6:
-                    System.out.println("Queue Elements:");
+                case "all elements":
+                    System.out.println("queue elements:");
                     printQueueElements(queue);
                     break;
-                case 7:
+                case "exit":
                     System.out.println("Exiting program.");
                     scanner.close();
                     return;
